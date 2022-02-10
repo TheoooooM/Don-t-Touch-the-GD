@@ -18,9 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float maxForce;
     private bool started = false;
     public GameObject gameOverCanvas;
-    public AudioSource AudioSource;
-    public List<AudioClip> myList = new List<AudioClip>();
-
+    
 
     private void Start()
     {
@@ -32,12 +30,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+        
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) && GameManager.Instance.currentGameState != GameManager.GameState.dead)
         {
             rb.velocity = Vector2.up*jumpForce;
             if (GameManager.Instance.currentGameState == GameManager.GameState.menu) GameManager.Instance.currentGameState = GameManager.GameState.inGame;
-            AudioSource.clip = myList[3];
-            AudioSource.Play();
         }
         else if((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)))
         {
@@ -72,8 +69,6 @@ public class Player : MonoBehaviour
             switch (other.transform.tag)
             {
                 case "Walls":
-                    AudioSource.clip = myList[2];
-                    AudioSource.Play();
                     goRight = !goRight;
                     speed = -speed;
                     GameManager.Instance.Score++;
@@ -89,12 +84,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Bonbon"))
-        {
-            AudioSource.clip = myList[0];
-            AudioSource.Play();
-            SE.PickupBonbon();
-        }
+        if(other.CompareTag("Bonbon")) SE.PickupBonbon();
     }
 
 
@@ -113,8 +103,6 @@ public class Player : MonoBehaviour
     
     void Death()
     {
-        AudioSource.clip = myList[1];
-        AudioSource.Play();
         GameManager.Instance.currentGameState = GameManager.GameState.dead;
         gameOverCanvas.SetActive(true);
         GameManager.Instance.totalBonbon += GameManager.Instance.currentGameBonbon;
@@ -125,5 +113,10 @@ public class Player : MonoBehaviour
             PlayerPrefs.SetInt("highScore", GameManager.Instance.Score);
         }
         PlayerPrefs.SetInt("partyPlayed", PlayerPrefs.GetInt("partyPlayed")+1);
+        
+        MenuUIManager.Instance.deathHighscoreTxt.text = $"Highscore : {PlayerPrefs.GetInt("highScore")}";
+        MenuUIManager.Instance.deathPlayedGamesTxt.text = $"Played Games : {PlayerPrefs.GetInt("partyPlayed")}";
+        MenuUIManager.Instance.scoreText.text = $"Score : {GameManager.Instance.Score}";
+
     }
 }
