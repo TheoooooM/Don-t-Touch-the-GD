@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private SpriteRenderer sprite;
+    
     [HideInInspector] private bool goRight = true;
 
     [SerializeField] private SpikeEnabler SE;
@@ -21,7 +23,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-            
+        sprite = GetComponent<SpriteRenderer>();
+
     }
 
     void Update()
