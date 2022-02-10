@@ -10,7 +10,8 @@ public class MenuUIManager : MonoBehaviour
 
     
     public GameObject loadedCanvas;
-
+    public AudioSource AudioSource;
+    
     [SerializeField] GameObject mainMenuCanvas;
     public GameObject inGameCanavs;
     [SerializeField] GameObject duelMenuCanvas;
@@ -34,6 +35,7 @@ public class MenuUIManager : MonoBehaviour
 
     public void ChangeCanvas(GameObject canvasToLoad)
     {
+        AudioSource.Play();
         loadedCanvas.GetComponent<MenuUIMover>().MoveCanvas(false);
         StartCoroutine(WaitCanvasMove(canvasToLoad));
     }
