@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ChnagingBirdSprite : MonoBehaviour
 {
     public bool unlocked = false;
-
+    public SpriteRenderer player;
     public int cost;
 
     [SerializeField] int id;
@@ -29,7 +29,6 @@ public class ChnagingBirdSprite : MonoBehaviour
 
     public void Buy()
     {
-        
 
         if (!unlocked)
         {
@@ -42,7 +41,7 @@ public class ChnagingBirdSprite : MonoBehaviour
         }
         else
         {
-            //sprite du perso = mysprite;
+            player.sprite = this.mySprite;
         }
     }
     
