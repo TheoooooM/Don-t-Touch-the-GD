@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance.currentGameState == GameManager.GameState.inGame)
         {
+            if(started == false) StartParty();
             rb.simulated = true;
             transform.Translate(speed, 0, 0);
         }
@@ -79,7 +80,9 @@ public class Player : MonoBehaviour
         SE.EnableSpikes(goRight, GameManager.Instance.Score);
         if (MenuUIManager.Instance != null)
         {
-            MenuUIManager.Instance.ChangeCanvas(MenuUIManager.Instance.inGameCanavs);
+            Debug.Log("change canvas");
+            MenuUIManager.Instance.loadedCanvas.SetActive(false);
+            MenuUIManager.Instance.inGameCanavs.SetActive(true);
         }
 
         started = true;
