@@ -108,7 +108,7 @@ public class SpikeEnabler : MonoBehaviour
         }
     }
 
-    public void PickupBonbon(GameObject obj)
+    public void PickupBonbon()
     {
         currentBonbon.SetActive(false);
         currentBonbon = null;
