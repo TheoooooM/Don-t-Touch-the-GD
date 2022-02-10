@@ -24,18 +24,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.currentGameState == GameManager.GameState.inGame)
-        {
-            if (started == false)StartParty();
-            rb.simulated = true;
-            transform.Translate(speed, 0, 0);
-        }
-        else
-        {
-            rb.simulated = false;
-            started = false;
-            Debug.Log("not in game");
-        }
+        
         
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -86,7 +75,11 @@ public class Player : MonoBehaviour
     void StartParty()
     {
         SE.EnableSpikes(goRight, GameManager.Instance.Score);
-        
+        if (MenuUIManager.Instance != null)
+        {
+        MenuUIManager.Instance.ChangeCanvas(MenuUIManager.Instance.inGameCanavs);
+        }
+
         started = true;
     }
     
