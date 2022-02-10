@@ -73,6 +73,9 @@ public class Player : MonoBehaviour
                 
             case "Spike" : Death();
                 break;
+            
+            case "Bonbon" : GameManager.Instance.currentGameBonbon++;
+                break;
         }
 
     }
@@ -80,7 +83,8 @@ public class Player : MonoBehaviour
     void Death()
     {
         GameManager.Instance.currentGameState = GameManager.GameState.dead;
-        
+        GameManager.Instance.totalBonbon += GameManager.Instance.currentGameBonbon;
+        PlayerPrefs.SetInt("bonbon", GameManager.Instance.totalBonbon);
         
     }
 }
