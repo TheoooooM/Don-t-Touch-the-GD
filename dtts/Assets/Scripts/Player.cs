@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     {
         
         
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) && GameManager.Instance.currentGameState == GameManager.GameState.inGame)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) && GameManager.Instance.currentGameState != GameManager.GameState.dead)
         {
             rb.velocity = Vector2.up*jumpForce;
             if (GameManager.Instance.currentGameState == GameManager.GameState.menu) GameManager.Instance.currentGameState = GameManager.GameState.inGame;
@@ -54,19 +54,22 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        switch (other.transform.tag)
+        if (GameManager.Instance.currentGameState != GameManager.GameState.dead)
         {
-            case "Walls" :
-                goRight = !goRight;
-                speed = -speed;
-                GameManager.Instance.Score++;
-                SE.EnableSpikes(goRight, GameManager.Instance.Score);
-                break;
-                
-            case "Spike" : Death();
-                break;
-        }
+            switch (other.transform.tag)
+            {
+                case "Walls":
+                    goRight = !goRight;
+                    speed = -speed;
+                    GameManager.Instance.Score++;
+                    SE.EnableSpikes(goRight, GameManager.Instance.Score);
+                    break;
 
+                case "Spike":
+                    Death();
+                    break;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
