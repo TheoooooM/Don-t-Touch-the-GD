@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 7
-  speed: 0.007
+  speed: 0.006
   maxForce: 6
 --- !u!212 &1004161244
 SpriteRenderer:
