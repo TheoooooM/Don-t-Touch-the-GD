@@ -112,5 +112,6 @@ public class SpikeEnabler : MonoBehaviour
     {
         currentBonbon.SetActive(false);
         currentBonbon = null;
+        GameManager.Instance.currentGameBonbon++;
     }
 }

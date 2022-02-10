@@ -76,15 +76,17 @@ public class Player : MonoBehaviour
             case "Spike" : Death();
                 break;
             
-            case "Bonbon" : GameManager.Instance.currentGameBonbon++;
+            case "Bonbon" : SE.PickupBonbon();
                 break;
         }
 
     }
 
+    
     void StartParty()
     {
         SE.EnableSpikes(goRight, GameManager.Instance.Score);
+        
         started = true;
     }
     
@@ -93,6 +95,12 @@ public class Player : MonoBehaviour
         GameManager.Instance.currentGameState = GameManager.GameState.dead;
         GameManager.Instance.totalBonbon += GameManager.Instance.currentGameBonbon;
         PlayerPrefs.SetInt("bonbon", GameManager.Instance.totalBonbon);
+        
+        if (GameManager.Instance.Score > PlayerPrefs.GetInt("highScore"))
+        {
+            PlayerPrefs.SetInt("highScore", GameManager.Instance.Score);
+        }
+        PlayerPrefs.SetInt("partyPlayed", PlayerPrefs.GetInt("partyPlayed")+1);
         
     }
 }

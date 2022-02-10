@@ -6,17 +6,20 @@ using TMPro;
 
 public class MenuUIManager : MonoBehaviour
 {
+    public static MenuUIManager Instance;
+    
+    
     GameObject loadedCanvas;
 
     [SerializeField] GameObject mainMenuCanvas;
-    [SerializeField] GameObject inGameCanavs;
+    public GameObject inGameCanavs;
     [SerializeField] GameObject duelMenuCanvas;
     [SerializeField] GameObject spriteMenuCanvas;
     [SerializeField] GameObject shopMenuCanvas;
     [SerializeField] GameObject statMenuCanvas;
 
-    public GameObject highscoreTxt;
-    public GameObject playedGamesTxt;
+    public TextMeshProUGUI highscoreTxt;
+    public TextMeshProUGUI playedGamesTxt;
 
     public List<GameObject> SpritePages = new List<GameObject>();
     int pageIndex;
@@ -24,6 +27,7 @@ public class MenuUIManager : MonoBehaviour
     private void Awake()
     {
         loadedCanvas = mainMenuCanvas;
+        highscoreTxt.text = $"Highscore : {PlayerPrefs.GetInt("highScore")}";
         //Add the playerpref for score
     }
 
