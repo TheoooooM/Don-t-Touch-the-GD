@@ -87,7 +87,7 @@ public class SpikeEnabler : MonoBehaviour
         else
         {
             int number = Random.Range(0, leftBonbonsList.Count);
-            rightBonbonsList[number].SetActive(true);
+            leftBonbonsList[number].SetActive(true);
             currentBonbon = leftBonbonsList[number];
         }
         
@@ -106,6 +106,7 @@ public class SpikeEnabler : MonoBehaviour
             spikesPool[number].SetActive(true);
             spikesPool.Remove(spikesPool[number]);
         }
+        SpawnBonbon(rightSide);
     }
 
     public void PickupBonbon()

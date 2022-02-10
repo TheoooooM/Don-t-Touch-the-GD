@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     {
         
         
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) && GameManager.Instance.currentGameState == GameManager.GameState.inGame)
         {
             rb.velocity = Vector2.up*jumpForce;
             if (GameManager.Instance.currentGameState == GameManager.GameState.menu) GameManager.Instance.currentGameState = GameManager.GameState.inGame;
@@ -64,20 +64,22 @@ public class Player : MonoBehaviour
                 
             case "Spike" : Death();
                 break;
-            
-            case "Bonbon" : SE.PickupBonbon();
-                break;
         }
 
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Bonbon")) SE.PickupBonbon();
+    }
+
+
     void StartParty()
     {
         SE.EnableSpikes(goRight, GameManager.Instance.Score);
         if (MenuUIManager.Instance != null)
         {
-        MenuUIManager.Instance.ChangeCanvas(MenuUIManager.Instance.inGameCanavs);
+            MenuUIManager.Instance.ChangeCanvas(MenuUIManager.Instance.inGameCanavs);
         }
 
         started = true;
