@@ -43,11 +43,11 @@ public class Player : MonoBehaviour
             rb.simulated = true;
             transform.Translate(speed, 0, 0);
         }
-        else
+        else if(GameManager.Instance.currentGameState == GameManager.GameState.dead)
         {
-            rb.simulated = false;
             Debug.Log("not in game");
         }
+        else rb.simulated = false;
     }
 
 
