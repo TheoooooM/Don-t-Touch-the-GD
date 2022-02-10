@@ -31,12 +31,12 @@ public class Player : MonoBehaviour
     {
         
         
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) && GameManager.Instance.currentGameState != GameManager.GameState.dead)
+        if (Input.GetKeyDown(KeyCode.Space) && GameManager.Instance.currentGameState != GameManager.GameState.dead)
         {
             rb.velocity = Vector2.up*jumpForce;
             if (GameManager.Instance.currentGameState == GameManager.GameState.menu) GameManager.Instance.currentGameState = GameManager.GameState.inGame;
         }
-        else if((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)))
+        else if(Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene(0);
         }
