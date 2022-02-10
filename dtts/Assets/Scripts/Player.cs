@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private SpriteRenderer sprite;
+    
     [HideInInspector] private bool goRight = true;
 
     [SerializeField] private SpikeEnabler SE;
@@ -14,12 +17,14 @@ public class Player : MonoBehaviour
     [SerializeField] float speed = 5;
     [SerializeField] private float maxForce;
     private bool started = false;
+    public GameObject gameOverCanvas;
     
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-            
+        sprite = GetComponent<SpriteRenderer>();
+
     }
 
     void Update()
@@ -31,6 +36,11 @@ public class Player : MonoBehaviour
             rb.velocity = Vector2.up*jumpForce;
             if (GameManager.Instance.currentGameState == GameManager.GameState.menu) GameManager.Instance.currentGameState = GameManager.GameState.inGame;
         }
+        else if((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)))
+        {
+            SceneManager.LoadScene(0);
+        }
+        
 
         if (rb.velocity.y > maxForce) rb.velocity = new Vector2(rb.velocity.x, maxForce);
         //else if (rb.velocity.y < -maxForce)rb.velocity = new Vector2(rb.velocity.x, -maxForce);
@@ -94,6 +104,7 @@ public class Player : MonoBehaviour
     void Death()
     {
         GameManager.Instance.currentGameState = GameManager.GameState.dead;
+        gameOverCanvas.SetActive(true);
         GameManager.Instance.totalBonbon += GameManager.Instance.currentGameBonbon;
         PlayerPrefs.SetInt("bonbon", GameManager.Instance.totalBonbon);
         
@@ -103,5 +114,9 @@ public class Player : MonoBehaviour
         }
         PlayerPrefs.SetInt("partyPlayed", PlayerPrefs.GetInt("partyPlayed")+1);
         
+        MenuUIManager.Instance.deathHighscoreTxt.text = $"Highscore : {PlayerPrefs.GetInt("highScore")}";
+        MenuUIManager.Instance.deathPlayedGamesTxt.text = $"Played Games : {PlayerPrefs.GetInt("partyPlayed")}";
+        MenuUIManager.Instance.scoreText.text = $"Score : {GameManager.Instance.Score}";
+
     }
 }
