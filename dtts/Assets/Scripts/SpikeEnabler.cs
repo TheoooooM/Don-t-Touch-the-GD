@@ -8,6 +8,7 @@ public class SpikeEnabler : MonoBehaviour
     [SerializeField] private Transform leftSpikesTransform;
     private List<GameObject> rightSpikesList = new List<GameObject>();
     private List<GameObject> leftSpikesList = new List<GameObject>();
+    private List<GameObject> spikesPool = new List<GameObject>();
 
     void Start()
     {
@@ -21,8 +22,13 @@ public class SpikeEnabler : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private Vector2Int GetNumberOfSpikesToActivate(int score)
+    {
+        if (score < 20) return new Vector2Int(2, 3);
+        return Vector2Int.zero;
+    }
+
+    public void EnableSpikes(bool rightSide, int score)
     {
         
     }
