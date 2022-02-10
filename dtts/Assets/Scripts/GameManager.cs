@@ -24,6 +24,12 @@ public class GameManager : MonoBehaviour
    }
 
    public GameState currentGameState;
+   [Header("Stats")]
+   public int Score;
+
+   public int totalBonbon;
+   public int currentGameBonbon;
+   
 
    private void Start()
    {
