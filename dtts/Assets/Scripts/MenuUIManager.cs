@@ -7,9 +7,9 @@ using TMPro;
 public class MenuUIManager : MonoBehaviour
 {
     public static MenuUIManager Instance;
+
     
-    
-    GameObject loadedCanvas;
+    public GameObject loadedCanvas;
 
     [SerializeField] GameObject mainMenuCanvas;
     public GameObject inGameCanavs;
@@ -26,6 +26,7 @@ public class MenuUIManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         loadedCanvas = mainMenuCanvas;
         highscoreTxt.text = $"Highscore : {PlayerPrefs.GetInt("highScore")}";
         //Add the playerpref for score
