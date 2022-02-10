@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
+    [HideInInspector] private bool goRight = true;
 
     [Header("==== Player Stats ====")] 
     [SerializeField] float jumpForce = 5; 
@@ -59,10 +60,23 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.transform.CompareTag("Walls"))
+        switch (other.transform.tag)
         {
-            Debug.Log("reverse sens");
-            speed = -speed;
+            case "Walls" :
+                goRight = !goRight;
+                speed = -speed; 
+                break;
+                
+            case "Spike" : Death();
+                break;
         }
+
+    }
+
+    void Death()
+    {
+        GameManager.Instance.currentGameState = GameManager.GameState.dead;
+        
+        
     }
 }
