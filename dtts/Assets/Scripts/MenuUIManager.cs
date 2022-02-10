@@ -23,6 +23,7 @@ public class MenuUIManager : MonoBehaviour
     public TextMeshProUGUI deathHighscoreTxt;
     public TextMeshProUGUI deathPlayedGamesTxt;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreTextInGame;
 
     public List<GameObject> SpritePages = new List<GameObject>();
     int pageIndex;

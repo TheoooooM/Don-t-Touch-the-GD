@@ -72,6 +72,8 @@ public class Player : MonoBehaviour
                     goRight = !goRight;
                     speed = -speed;
                     GameManager.Instance.Score++;
+                    MenuUIManager.Instance.scoreTextInGame.text = GameManager.Instance.Score.ToString();
+                    
                     SE.EnableSpikes(goRight, GameManager.Instance.Score);
                     break;
 
