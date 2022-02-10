@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
    }
 
    public GameState currentGameState;
+   public int Score;
 
    private void Start()
    {
