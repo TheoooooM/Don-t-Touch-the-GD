@@ -114,5 +114,9 @@ public class Player : MonoBehaviour
         }
         PlayerPrefs.SetInt("partyPlayed", PlayerPrefs.GetInt("partyPlayed")+1);
         
+        MenuUIManager.Instance.deathHighscoreTxt.text = $"Highscore : {PlayerPrefs.GetInt("highScore")}";
+        MenuUIManager.Instance.deathPlayedGamesTxt.text = $"Played Games : {PlayerPrefs.GetInt("partyPlayed")}";
+        MenuUIManager.Instance.scoreText.text = $"Score : {GameManager.Instance.Score}";
+
     }
 }
