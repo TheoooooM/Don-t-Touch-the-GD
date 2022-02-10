@@ -13,25 +13,27 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpForce = 5; 
     [SerializeField] float speed = 5;
     [SerializeField] private float maxForce;
+    private bool started = false;
     
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        SE.EnableSpikes(goRight, GameManager.Instance.Score);
+            
     }
 
     void Update()
     {
         if (GameManager.Instance.currentGameState == GameManager.GameState.inGame)
         {
-            
+            if (started == false)StartParty();
             rb.simulated = true;
             transform.Translate(speed, 0, 0);
         }
         else
         {
             rb.simulated = false;
+            started = false;
             Debug.Log("not in game");
         }
         
@@ -80,6 +82,12 @@ public class Player : MonoBehaviour
 
     }
 
+    void StartParty()
+    {
+        SE.EnableSpikes(goRight, GameManager.Instance.Score);
+        started = true;
+    }
+    
     void Death()
     {
         GameManager.Instance.currentGameState = GameManager.GameState.dead;

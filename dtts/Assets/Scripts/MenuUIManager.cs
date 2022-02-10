@@ -9,6 +9,7 @@ public class MenuUIManager : MonoBehaviour
     GameObject loadedCanvas;
 
     [SerializeField] GameObject mainMenuCanvas;
+    [SerializeField] GameObject inGameCanavs;
     [SerializeField] GameObject duelMenuCanvas;
     [SerializeField] GameObject spriteMenuCanvas;
     [SerializeField] GameObject shopMenuCanvas;
