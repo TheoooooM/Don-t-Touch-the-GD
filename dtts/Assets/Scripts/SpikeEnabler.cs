@@ -6,9 +6,14 @@ public class SpikeEnabler : MonoBehaviour
 {
     [SerializeField] private Transform rightSpikesTransform;
     [SerializeField] private Transform leftSpikesTransform;
+    [SerializeField] private Transform rightBonbonsTransform;
+    [SerializeField] private Transform leftBonbonsTransform;
     private List<GameObject> rightSpikesList = new List<GameObject>();
     private List<GameObject> leftSpikesList = new List<GameObject>();
     private List<GameObject> spikesPool = new List<GameObject>();
+    private List<GameObject> rightBonbonsList = new List<GameObject>();
+    private List<GameObject> leftBonbonsList = new List<GameObject>();
+    private GameObject currentBonbon;
 
     void Start()
     {
@@ -19,6 +24,14 @@ public class SpikeEnabler : MonoBehaviour
         foreach (Transform child in leftSpikesTransform)
         {
             leftSpikesList.Add(child.gameObject);
+        }
+        foreach (Transform child in rightBonbonsTransform)
+        {
+            rightBonbonsList.Add(child.gameObject);
+        }
+        foreach (Transform child in leftBonbonsTransform)
+        {
+            leftBonbonsList.Add(child.gameObject);
         }
     }
 
@@ -62,6 +75,24 @@ public class SpikeEnabler : MonoBehaviour
         }
     }
 
+    private void SpawnBonbon(bool rightSide)
+    {
+        if(currentBonbon != null) return;
+        if (rightSide)
+        {
+            int number = Random.Range(0, rightBonbonsList.Count);
+            rightBonbonsList[number].SetActive(true);
+            currentBonbon = rightBonbonsList[number];
+        }
+        else
+        {
+            int number = Random.Range(0, leftBonbonsList.Count);
+            rightBonbonsList[number].SetActive(true);
+            currentBonbon = leftBonbonsList[number];
+        }
+        
+    }
+
     public void EnableSpikes(bool rightSide, int score)
     {
         ClearSpikes();
@@ -75,5 +106,11 @@ public class SpikeEnabler : MonoBehaviour
             spikesPool[number].SetActive(true);
             spikesPool.Remove(spikesPool[number]);
         }
+    }
+
+    public void PickupBonbon(GameObject obj)
+    {
+        currentBonbon.SetActive(false);
+        currentBonbon = null;
     }
 }
