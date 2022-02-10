@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        transform.Translate(speed, 0, 0);
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector2.up*jumpForce;
@@ -26,5 +28,14 @@ public class Player : MonoBehaviour
 
         if (rb.velocity.y > maxForce) rb.velocity = new Vector2(rb.velocity.x, maxForce);
         else if (rb.velocity.y < -maxForce)rb.velocity = new Vector2(rb.velocity.x, -maxForce);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.transform.CompareTag("Walls"))
+        {
+            Debug.Log("reverse sens");
+            speed = -speed;
+        }
     }
 }
