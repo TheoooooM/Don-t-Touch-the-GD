@@ -17,6 +17,9 @@ public class MenuUIManager : MonoBehaviour
     public GameObject highscoreTxt;
     public GameObject playedGamesTxt;
 
+    public List<GameObject> SpritePages = new List<GameObject>();
+    int pageIndex;
+
     private void Awake()
     {
         loadedCanvas = mainMenuCanvas;
@@ -34,5 +37,16 @@ public class MenuUIManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         canvasToLoad.GetComponent<MenuUIMover>().MoveCanvas(true);
         loadedCanvas = canvasToLoad;
+    }
+
+    public void SpritePageChange(bool next)
+    {
+        SpritePages[pageIndex].SetActive(false);
+        if (next) pageIndex++;
+        else pageIndex--;
+
+        if (pageIndex < 0) pageIndex = 4;
+        if (pageIndex > 4) pageIndex = 0;
+        SpritePages[pageIndex].SetActive(true);
     }
 }
