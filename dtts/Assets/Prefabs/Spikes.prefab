@@ -91,6 +91,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightSpikesTransform: {fileID: 6950954580110199657}
   leftSpikesTransform: {fileID: 6950954579002110198}
+  rightBonbonsTransform: {fileID: 3111458107103124446}
+  leftBonbonsTransform: {fileID: 3040710542616400467}
 --- !u!1 &6950954579002110193
 GameObject:
   m_ObjectHideFlags: 0
