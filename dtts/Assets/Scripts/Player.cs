@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     [HideInInspector] private bool goRight = true;
 
+    [SerializeField] private SpikeEnabler SE;
     [Header("==== Player Stats ====")] 
     [SerializeField] float jumpForce = 5; 
     [SerializeField] float speed = 5;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        SE.EnableSpikes(goRight, GameManager.Instance.Score);
     }
 
     void Update()
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
         }
 
         if (rb.velocity.y > maxForce) rb.velocity = new Vector2(rb.velocity.x, maxForce);
-        else if (rb.velocity.y < -maxForce)rb.velocity = new Vector2(rb.velocity.x, -maxForce);
+        //else if (rb.velocity.y < -maxForce)rb.velocity = new Vector2(rb.velocity.x, -maxForce);
     }
 
     private void FixedUpdate()
@@ -64,10 +66,15 @@ public class Player : MonoBehaviour
         {
             case "Walls" :
                 goRight = !goRight;
-                speed = -speed; 
+                speed = -speed;
+                GameManager.Instance.Score++;
+                SE.EnableSpikes(goRight, GameManager.Instance.Score);
                 break;
                 
             case "Spike" : Death();
+                break;
+            
+            case "Bonbon" : GameManager.Instance.currentGameBonbon++;
                 break;
         }
 
@@ -76,7 +83,8 @@ public class Player : MonoBehaviour
     void Death()
     {
         GameManager.Instance.currentGameState = GameManager.GameState.dead;
-        
+        GameManager.Instance.totalBonbon += GameManager.Instance.currentGameBonbon;
+        PlayerPrefs.SetInt("bonbon", GameManager.Instance.totalBonbon);
         
     }
 }
